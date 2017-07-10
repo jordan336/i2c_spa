@@ -12,7 +12,7 @@ SRCS_LINUX  := ${DIR_LINUX}/${FILE_SRC}
 OBJS_LINUX  := $(SRCS_LINUX:.c=.o)
 OBJS        := ${OBJS_LINUX}
 
-CFLAGS_DEFAULT := -Wall -Werror -I ${DIR_INCLUDE}
+CFLAGS_DEFAULT := -Wall -Werror -std=c99 -I ${DIR_INCLUDE}
 
 
 .PHONY: all clean ${TGT_LINUX}

@@ -5,7 +5,13 @@
 #ifndef _I2C_SPA_H
 #define _I2C_SPA_H
 
+#ifdef PLATFORM_LINUX
+#include <stdio.h>
 #include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#endif
 
 typedef enum
 {
@@ -24,8 +30,9 @@ typedef struct
 
 
 I2C_SPA_RC i2c_spa_init(I2C_SPA_PARAMS *params);
-I2C_SPA_RC i2c_spa_read_bytes(I2C_SPA_PARAMS *params, uint8_t addr, uint8_t num, uint8_t *data);
-I2C_SPA_RC i2c_spa_write_bytes(I2C_SPA_PARAMS *params, uint8_t addr, uint8_t num, uint8_t *data);
+I2C_SPA_RC i2c_spa_read(I2C_SPA_PARAMS *params, uint8_t num_bytes, uint8_t *data);
+I2C_SPA_RC i2c_spa_write_quick(I2C_SPA_PARAMS *params, uint8_t data);
+I2C_SPA_RC i2c_spa_write(I2C_SPA_PARAMS *params, uint8_t addr, uint8_t num_bytes, uint8_t *data);
 I2C_SPA_RC i2c_spa_close(I2C_SPA_PARAMS *params);
 
 #endif /* _I2C_SPA_H */

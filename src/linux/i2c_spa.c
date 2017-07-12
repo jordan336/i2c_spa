@@ -25,29 +25,27 @@ I2C_SPA_RC i2c_spa_init(I2C_SPA_PARAMS *params)
     return I2C_SPA_OK;
 }
 
-I2C_SPA_RC i2c_spa_read(I2C_SPA_PARAMS *params, uint8_t num_bytes, uint8_t *data)
+I2C_SPA_RC i2c_spa_read(I2C_SPA_PARAMS *params, uint8_t addr, uint8_t num_bytes, uint8_t *data)
 {
+    if (i2c_spa_write_short(params, addr) != I2C_SPA_OK)
+    {
+        return I2C_SPA_ERROR;
+    }
+
     if (read(params->bus_fd, data, num_bytes) != num_bytes)
     {
         perror("Read");
         return I2C_SPA_ERROR;
     }
 
-    for (int i = 0; i < num_bytes/2; i++)
-    {
-        uint8_t temp = data[i];
-        data[i] = data[num_bytes-i-1];
-        data[num_bytes-i-1] = temp;
-    }
-
     return I2C_SPA_OK;
 }
 
-I2C_SPA_RC i2c_spa_write_quick(I2C_SPA_PARAMS *params, uint8_t data)
+I2C_SPA_RC i2c_spa_read_short(I2C_SPA_PARAMS *params, uint8_t num_bytes, uint8_t *data)
 {
-    if (write(params->bus_fd, &data, 1))
+    if (read(params->bus_fd, data, num_bytes) != num_bytes)
     {
-        perror("Write");
+        perror("Read");
         return I2C_SPA_ERROR;
     }
 
@@ -63,7 +61,19 @@ I2C_SPA_RC i2c_spa_write(I2C_SPA_PARAMS *params, uint8_t addr, uint8_t num_bytes
         buf[num_bytes-i] = data[i];
     }
 
-    if (write(params->bus_fd, buf, num_bytes+1))
+    if (write(params->bus_fd, buf, num_bytes+1) != num_bytes+1)
+    {
+        perror("Write");
+        return I2C_SPA_ERROR;
+    }
+
+    return I2C_SPA_OK;
+}
+
+I2C_SPA_RC i2c_spa_write_short(I2C_SPA_PARAMS *params, uint8_t data)
+{
+    uint8_t num_bytes = 1;
+    if (write(params->bus_fd, &data, num_bytes) != num_bytes)
     {
         perror("Write");
         return I2C_SPA_ERROR;

@@ -10,5 +10,5 @@ on different platforms, without changing source code.
 
 Currently supported platforms:
 
-    * Linux
+- Linux
 

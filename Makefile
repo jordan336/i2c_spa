@@ -4,11 +4,11 @@ DIR_SRC     := src
 DIR_LINUX   := ${DIR_SRC}/linux
 
 TGT_LINUX   := linux
-TGT_LIB     := libi2c_spa.a
+TGT_LIB     := libio_spa.a
 
-FILE_SRC    := i2c_spa.c
+FILE_I2C_SRC := io_spa_i2c.c
 
-SRCS_LINUX  := ${DIR_LINUX}/${FILE_SRC}
+SRCS_LINUX  := ${DIR_LINUX}/${FILE_I2C_SRC}
 OBJS_LINUX  := $(SRCS_LINUX:.c=.o)
 OBJS        := ${OBJS_LINUX}
 

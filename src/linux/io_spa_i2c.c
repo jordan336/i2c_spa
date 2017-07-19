@@ -2,7 +2,7 @@
 
 #ifdef PLATFORM_LINUX
 
-#include "io_spa_i2c.h"
+#include "io_spa.h"
 
 IO_SPA_RC io_spa_i2c_init(IO_SPA_I2C_PARAMS *params)
 {

@@ -7,8 +7,9 @@ TGT_LINUX   := linux
 TGT_LIB     := libio_spa.a
 
 FILE_I2C_SRC := io_spa_i2c.c
+FILE_SPI_SRC := io_spa_spi.c
 
-SRCS_LINUX  := ${DIR_LINUX}/${FILE_I2C_SRC}
+SRCS_LINUX  := ${DIR_LINUX}/${FILE_I2C_SRC} ${DIR_LINUX}/${FILE_SPI_SRC}
 OBJS_LINUX  := $(SRCS_LINUX:.c=.o)
 OBJS        := ${OBJS_LINUX}
 
